@@ -12,10 +12,10 @@ export class ImagepropertyEntity {
     @Column()
     base64: string;
 
-    @ManyToOne(() => PropertyEntity, {
-        eager: true,
-    })
+    @Column()
+    property_id: number;
 
+    @ManyToOne(() => PropertyEntity, (property) => property.images)
     @JoinColumn({ name: 'property_id' })
     property: PropertyEntity;
 

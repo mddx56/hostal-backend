@@ -1,26 +1,54 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { CreateTypepropertyDto } from './dto/create-typeproperty.dto';
 import { UpdateTypepropertyDto } from './dto/update-typeproperty.dto';
+import { TypePropertyEntity } from './typeproperty.entity';
 
 @Injectable()
-export class TypepropertyService {
-  create(createTypepropertyDto: CreateTypepropertyDto) {
-    return 'This action adds a new typeproperty';
+export class TypePropertyService {
+
+  constructor(
+    @InjectRepository(TypePropertyEntity)
+    private readonly typepropertyRepository: Repository<TypePropertyEntity>,
+  ) { }
+
+  async create(createTypePropertyDto: CreateTypepropertyDto) {
+    const typepropertyData = await this.typepropertyRepository.create(createTypePropertyDto);
+    return this.typepropertyRepository.save(typepropertyData);
   }
 
-  findAll() {
-    return `This action returns all typeproperty`;
+  async findAll() {
+    return await this.typepropertyRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} typeproperty`;
+  async findOne(id: number): Promise<TypePropertyEntity> {
+    const typepropertyData =
+      await this.typepropertyRepository.findOneBy({ id });
+    if (!typepropertyData) {
+      throw new HttpException(
+        'TypeProperty Not Found',
+        404,
+      );
+    }
+    return typepropertyData;
   }
 
-  update(id: number, updateTypepropertyDto: UpdateTypepropertyDto) {
-    return `This action updates a #${id} typeproperty`;
+  async update(id: number, updateTypePropertyDto: UpdateTypepropertyDto) {
+    const existingTypeProperty = await this.findOne(id);
+    const typepropertyData = this.typepropertyRepository.merge(
+      existingTypeProperty,
+      updateTypePropertyDto,
+    );
+    return await this.typepropertyRepository.save(
+      typepropertyData,
+    );
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} typeproperty`;
+  async remove(id: number) {
+    const existingTypeProperty = await this.findOne(id);
+    return await this.typepropertyRepository.remove(
+      existingTypeProperty,
+    );
   }
 }

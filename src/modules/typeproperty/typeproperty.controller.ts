@@ -1,11 +1,11 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { TypepropertyService } from './typeproperty.service';
+import { TypePropertyService } from './typeproperty.service';
 import { CreateTypepropertyDto } from './dto/create-typeproperty.dto';
 import { UpdateTypepropertyDto } from './dto/update-typeproperty.dto';
 
 @Controller('typeproperty')
 export class TypepropertyController {
-  constructor(private readonly typepropertyService: TypepropertyService) {}
+  constructor(private readonly typepropertyService: TypePropertyService) {}
 
   @Post()
   create(@Body() createTypepropertyDto: CreateTypepropertyDto) {

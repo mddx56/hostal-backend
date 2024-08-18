@@ -2,6 +2,7 @@ import { Column, OneToMany, ManyToOne, JoinColumn, CreateDateColumn, Entity, Pri
 import { ZoneEntity } from '../zone/zone.entity';
 import { TypePropertyEntity } from '../typeproperty/typeproperty.entity';
 import { ImagepropertyEntity } from '../imageproperty/imageproperty.entity';
+import { CommentEntity } from '../comment/entities/comment.entity';
 
 @Entity('property')
 export class PropertyEntity {
@@ -11,7 +12,7 @@ export class PropertyEntity {
     @Column({ unique: true })
     name: string;
 
-    @Column()
+    @Column('text', { nullable: true })
     description: string;
 
     @Column()
@@ -23,7 +24,7 @@ export class PropertyEntity {
     @Column()
     rating: number;
 
-    @Column()
+    @Column({ name: "available_rooms" })
     availableRooms: number;
 
     @Column({ type: "decimal", default: 0 })
@@ -38,19 +39,24 @@ export class PropertyEntity {
     @UpdateDateColumn()
     updated?: Date;
 
-    @ManyToOne(() => ZoneEntity, {
-        eager: true,
-    })
+    @Column()
+    zone_id: number;
+
+    @ManyToOne(() => ZoneEntity, (zone) => zone.propertys)
     @JoinColumn({ name: 'zone_id' })
     zone: ZoneEntity;
 
-    @ManyToOne(() => TypePropertyEntity, {
-        eager: true,
-    })
+    @Column()
+    type_id: number;
+
+    @ManyToOne(() => TypePropertyEntity, (tp) => tp.propertys)
     @JoinColumn({ name: 'type_id' })
     type: TypePropertyEntity;
 
     @OneToMany(() => ImagepropertyEntity, (image) => image.property)
     images: PropertyEntity[];
+
+    @OneToMany(() => CommentEntity, (comment) => comment.property)
+    comments: CommentEntity[];
 
 }

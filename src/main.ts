@@ -12,7 +12,7 @@ async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule, { bufferLogs: true });
 
   app.useLogger(app.get(Logger));
-
+  app.setGlobalPrefix('v1');
   app.useGlobalPipes(
     new ValidationPipe({
       transform: true,
@@ -26,7 +26,7 @@ async function bootstrap() {
     .setTitle('HostalApp')
     .setDescription('API description')
     .setVersion('0.1')
-    .addTag('telos')
+    .addTag('teloss')
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
@@ -42,8 +42,8 @@ async function bootstrap() {
   });
 
   try {
-    await app.listen(process.env.PORT);
-    console.log(`API is listening on the port: ${process.env.PORT}`);
+    await app.listen(process.env.PORT || 3000);
+    console.log(`corriendo..🚀 on Nest.js  ${process.env.PORT}`);
   } catch (err) {
     console.error('Error starting API:', err);
   }

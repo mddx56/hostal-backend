@@ -1,13 +1,13 @@
 import { Module } from '@nestjs/common';
-import { AuthController } from './auth.controller';
-import { AuthService } from './auth.service';
-import { UserEntity } from '../user/user.entity';
-import { TypeOrmModule } from '@nestjs/typeorm';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
-import { NodemailerService } from '../nodemailer/nodemailer.service';
-import { GoogleStrategy } from 'src/strategy/google.strategy';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { GithubStrategy } from 'src/strategy/github.strategy';
+import { GoogleStrategy } from 'src/strategy/google.strategy';
+import { NodemailerService } from '../nodemailer/nodemailer.service';
+import { UserEntity } from '../user/user.entity';
+import { AuthController } from './auth.controller';
+import { AuthService } from './auth.service';
 
 @Module({
   imports: [
@@ -22,4 +22,4 @@ import { GithubStrategy } from 'src/strategy/github.strategy';
   controllers: [AuthController],
   providers: [AuthService, NodemailerService, GoogleStrategy, GithubStrategy],
 })
-export class AuthModule {}
+export class AuthModule { }

@@ -1,22 +1,22 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
-import { CreateZoneDto } from './dto/create-zone.dto';
-import { UpdateZoneDto } from './dto/update-zone.dto';
-import { ZoneService } from './zone.service';
+import { ResponseCommentService } from '../comment.service';
+import { CreateResponseCommentDto } from '../dto/create-response-comment.dto';
+import { UpdateResponseCommentDto } from '../dto/update-response-comment.dto';
 
-@Controller('zone')
-export class ZoneController {
-  constructor(private readonly zoneService: ZoneService) { }
+@Controller('comment')
+export class CommentController {
+  constructor(private readonly commentService: ResponseCommentService) { }
 
   @Post()
-  async create(@Body() createZoneDto: CreateZoneDto) {
+  async create(@Body() createCommentDto: CreateResponseCommentDto) {
     try {
-      await this.zoneService.create(
-        createZoneDto,
+      await this.commentService.create(
+        createCommentDto,
       );
 
       return {
         success: true,
-        message: 'Zone Created Successfully',
+        message: 'Comment Created Successfully',
       };
     } catch (error) {
       return {
@@ -30,11 +30,11 @@ export class ZoneController {
   async findAll() {
     try {
       const data =
-        await this.zoneService.findAll();
+        await this.commentService.findAll();
       return {
         success: true,
         data,
-        message: 'Zone Fetched Successfully',
+        message: 'Comment Fetched Successfully',
       };
     } catch (error) {
       return {
@@ -47,13 +47,13 @@ export class ZoneController {
   @Get(':id')
   async findOne(@Param('id') id: string) {
     try {
-      const data = await this.zoneService.findOne(
+      const data = await this.commentService.findOne(
         +id,
       );
       return {
         success: true,
         data,
-        message: 'Zone Fetched Successfully',
+        message: 'Comment Fetched Successfully',
       };
     } catch (error) {
       return {
@@ -64,15 +64,15 @@ export class ZoneController {
   }
 
   @Patch(':id')
-  async update(@Param('id') id: string, @Body() updateZoneDto: UpdateZoneDto) {
+  async update(@Param('id') id: string, @Body() updateCommentDto: UpdateResponseCommentDto) {
     try {
-      await this.zoneService.update(
+      await this.commentService.update(
         +id,
-        updateZoneDto,
+        updateCommentDto,
       );
       return {
         success: true,
-        message: 'Zone Updated Successfully',
+        message: 'Comment Updated Successfully',
       };
     } catch (error) {
       return {
@@ -85,10 +85,10 @@ export class ZoneController {
   @Delete(':id')
   async remove(@Param('id') id: string) {
     try {
-      await this.zoneService.remove(+id);
+      await this.commentService.remove(+id);
       return {
         success: true,
-        message: 'Zone Deleted Successfully',
+        message: 'Comment Deleted Successfully',
       };
     } catch (error) {
       return {

@@ -25,14 +25,14 @@ export class AuthService {
   }
 
   async generateTokens(user: UserEntity) {
-    const payload = { sub: user.id, email: user.email, roles: user.roles, purpose: 'sign in / sign up' };
+    const payload = { sub: user.id, email: user.email, role: user.role, purpose: 'sign in / sign up' };
     const token = await this.generateToken(payload, '5m', 'JWT_SECRET');
 
-    const refreshPayload = { sub: user.id, email: user.email, roles: user.roles, purpose: 'refresh' };
+    const refreshPayload = { sub: user.id, email: user.email, role: user.role, purpose: 'refresh' };
     const refreshToken = await this.generateToken(refreshPayload, '10m', 'JWT_SECRET');
 
     this.logger.debug({ context: 'AuthService', message: `Token generado para usuario ${user.email}` });
-    return { uid: user.id, name: user.name, email: user.email, roles: user.roles, token, refreshToken };
+    return { id: user.id, name: user.name, email: user.email, role: user.role, token, refreshToken };
   }
 
   async refreshToken(refreshToken: string) {
@@ -43,7 +43,7 @@ export class AuthService {
       const user = await this.userRepository.findOne({ where: { email: payload.email } });
       if (!user) throw new UnauthorizedException('Usuario no encontrado.');
 
-      const newPayload = { sub: user.id, email: user.email, roles: user.roles, purpose: 'newToken' };
+      const newPayload = { sub: user.id, email: user.email, role: user.role, purpose: 'newToken' };
       const newToken = await this.generateToken(newPayload, '5m', 'JWT_SECRET');
 
       this.logger.debug({ context: 'AuthService', message: `Token actualizado para el usuario ${user.email}` });
@@ -102,10 +102,10 @@ export class AuthService {
     const user = await this.findOneByEmail(reset.email);
     if (!user) throw new UnauthorizedException('Este email es invalido, por favor vuelva a intentarlo.');
 
-    const payload = { uid: user.id, roles: user.roles, purpose: 'Reset Password' };
+    const payload = { id: user.id, role: user.role, purpose: 'Reset Password' };
     const tokenReset = await this.generateToken(payload, '10m', 'JWT_SECRET');
 
-    const checkLink = `http://localhost:3000/auth/recover/password/?uid=${user.id}&token=${tokenReset}`;
+    const checkLink = `http://localhost:3000/auth/recover/password/?id=${user.id}&token=${tokenReset}`;
 
     await this.nodemailerService.sendPasswordResetEmail(
       {

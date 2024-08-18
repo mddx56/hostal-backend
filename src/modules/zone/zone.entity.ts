@@ -9,7 +9,7 @@ export class ZoneEntity {
     @Column({ unique: true })
     name: string;
 
-    @Column()
+    @Column('text', { nullable: true })
     description: string;
 
     @OneToMany(() => PropertyEntity, (property) => property.zone)

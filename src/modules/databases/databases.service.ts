@@ -6,6 +6,8 @@ import { ImagepropertyEntity } from '../imageproperty/imageproperty.entity';
 import { TypePropertyEntity } from '../typeproperty/typeproperty.entity';
 import { PropertyEntity } from '../property/property.entity';
 import { ZoneEntity } from '../zone/zone.entity';
+import { CommentEntity } from '../comment/entities/comment.entity';
+import { ResponseCommentEntity } from '../comment/entities/reposnse.entiry';
 
 @Injectable()
 export class DatabaseService implements TypeOrmOptionsFactory {
@@ -18,7 +20,7 @@ export class DatabaseService implements TypeOrmOptionsFactory {
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.DATABASE,
       synchronize: true,
-      entities: [UserEntity, FeaturePropertyEntity, ImagepropertyEntity, TypePropertyEntity, PropertyEntity, ZoneEntity],
+      entities: [UserEntity, FeaturePropertyEntity, ImagepropertyEntity, TypePropertyEntity, PropertyEntity, ZoneEntity,CommentEntity,ResponseCommentEntity],
       logging: ['error', 'warn', 'info', 'query'],
     };
   }

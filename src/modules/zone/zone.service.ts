@@ -1,26 +1,54 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { CreateZoneDto } from './dto/create-zone.dto';
 import { UpdateZoneDto } from './dto/update-zone.dto';
+import { ZoneEntity } from './zone.entity';
 
 @Injectable()
 export class ZoneService {
-  create(createZoneDto: CreateZoneDto) {
-    return 'This action adds a new zone';
+
+  constructor(
+    @InjectRepository(ZoneEntity)
+    private readonly zoneRepository: Repository<ZoneEntity>,
+  ) { }
+
+  async create(createZoneDto: CreateZoneDto) {
+    const zoneData = await this.zoneRepository.create(createZoneDto);
+    return this.zoneRepository.save(zoneData);
   }
 
-  findAll() {
-    return `This action returns all zone`;
+  async findAll() {
+    return await this.zoneRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} zone`;
+  async findOne(id: number): Promise<ZoneEntity> {
+    const zoneData =
+      await this.zoneRepository.findOneBy({ id });
+    if (!zoneData) {
+      throw new HttpException(
+        'Zone Not Found',
+        404,
+      );
+    }
+    return zoneData;
   }
 
-  update(id: number, updateZoneDto: UpdateZoneDto) {
-    return `This action updates a #${id} zone`;
+  async update(id: number, updateZoneDto: UpdateZoneDto) {
+    const existingZone = await this.findOne(id);
+    const zoneData = this.zoneRepository.merge(
+      existingZone,
+      updateZoneDto,
+    );
+    return await this.zoneRepository.save(
+      zoneData,
+    );
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} zone`;
+  async remove(id: number) {
+    const existingZone = await this.findOne(id);
+    return await this.zoneRepository.remove(
+      existingZone,
+    );
   }
 }

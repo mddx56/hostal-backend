@@ -9,11 +9,11 @@ export class TypePropertyEntity {
     @Column({ unique: true })
     name: string;
 
-    @Column()
-    title: string;
+    @Column({ nullable: true })
+    title: string = "";
 
-    @Column()
-    description: string;
+    @Column('text', { nullable: true })
+    description: string = "";
 
     @OneToMany(() => PropertyEntity, (property) => property.type)
     propertys: PropertyEntity[];
