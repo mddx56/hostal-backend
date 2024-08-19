@@ -1,4 +1,5 @@
 import { IsAlphanumeric, IsEmail, IsEmpty, IsNotEmpty, IsString, IsUrl, Length } from 'class-validator';
+import { ApiProperty } from '@nestjs/swagger';
 
 export class PersonDto {
   @IsNotEmpty({ message: 'Oops al parecer no has ingresado dato en este campo' })
@@ -23,6 +24,7 @@ export class PersonDto {
 }
 
 export class SignInDto {
+  @ApiProperty({ example: 'ramez@gmail.com' })
   @IsNotEmpty({ message: 'Oops al parecer no has ingresado dato en este campo' })
   @IsEmail({}, { message: 'Email ingresado es incorrecto.' })
   @Length(5, 50, { message: 'El email debe contener entre 5 y 50 caracteres' })

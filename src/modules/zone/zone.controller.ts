@@ -1,9 +1,11 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, UseGuards } from '@nestjs/common';
 import { CreateZoneDto } from './dto/create-zone.dto';
 import { UpdateZoneDto } from './dto/update-zone.dto';
 import { ZoneService } from './zone.service';
+import { AuthGuard } from 'src/shared/guards/auth.guard';
 
 @Controller('zone')
+@UseGuards(AuthGuard)
 export class ZoneController {
   constructor(private readonly zoneService: ZoneService) { }
 
