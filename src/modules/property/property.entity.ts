@@ -3,6 +3,8 @@ import { ZoneEntity } from '../zone/zone.entity';
 import { TypePropertyEntity } from '../typeproperty/typeproperty.entity';
 import { ImagepropertyEntity } from '../imageproperty/imageproperty.entity';
 import { CommentEntity } from '../comment/entities/comment.entity';
+import { FavoriteEntity } from '../favorite/favorite.entity';
+import { FeaturePropertyEntity } from '../featureproperty/entities/featureproperty.entity';
 
 @Entity('property')
 export class PropertyEntity {
@@ -58,5 +60,11 @@ export class PropertyEntity {
 
     @OneToMany(() => CommentEntity, (comment) => comment.property)
     comments: CommentEntity[];
+
+    @OneToMany(() => FavoriteEntity, (favorite) => favorite.property)
+    favorites: FavoriteEntity[];
+
+    @OneToMany(() => FeaturePropertyEntity, (favorite) => favorite.property)
+    featureproperties: FeaturePropertyEntity[];
 
 }

@@ -3,6 +3,7 @@ import * as bcrypt from 'bcrypt';
 import { BeforeInsert, Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 import { CommentEntity } from '../comment/entities/comment.entity';
 import { ResponseCommentEntity } from '../comment/entities/reposnse.entiry';
+import { FavoriteEntity } from '../favorite/favorite.entity';
 
 @Entity('user')
 export class UserEntity {
@@ -41,6 +42,9 @@ export class UserEntity {
 
   @OneToMany(() => ResponseCommentEntity, (responsecom) => responsecom.user)
   responses: ResponseCommentEntity[];
+
+  @OneToMany(() => FavoriteEntity, (favorite) => favorite.user)
+  favorites: FavoriteEntity[];
 
   @BeforeInsert()
   async hashPassword(): Promise<void> {

@@ -19,7 +19,7 @@ export class PropertyService {
   }
 
   async findAll() {
-    return await this.propertyRepository.find();
+    return await this.propertyRepository.find({ relations: ['zone', 'type'] });
   }
 
   async findOne(id: number): Promise<PropertyEntity> {

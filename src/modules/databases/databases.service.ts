@@ -1,13 +1,15 @@
 import { Injectable } from '@nestjs/common';
 import { TypeOrmModuleOptions, TypeOrmOptionsFactory } from '@nestjs/typeorm';
-import { UserEntity } from '../user/user.entity';
-import { FeaturePropertyEntity } from '../featureproperty/featureproperty.entity';
-import { ImagepropertyEntity } from '../imageproperty/imageproperty.entity';
-import { TypePropertyEntity } from '../typeproperty/typeproperty.entity';
-import { PropertyEntity } from '../property/property.entity';
-import { ZoneEntity } from '../zone/zone.entity';
 import { CommentEntity } from '../comment/entities/comment.entity';
 import { ResponseCommentEntity } from '../comment/entities/reposnse.entiry';
+import { FavoriteEntity } from '../favorite/favorite.entity';
+import { FeatureEntity } from '../featureproperty/entities/feature.entity';
+import { FeaturePropertyEntity } from '../featureproperty/entities/featureproperty.entity';
+import { ImagepropertyEntity } from '../imageproperty/imageproperty.entity';
+import { PropertyEntity } from '../property/property.entity';
+import { TypePropertyEntity } from '../typeproperty/typeproperty.entity';
+import { UserEntity } from '../user/user.entity';
+import { ZoneEntity } from '../zone/zone.entity';
 
 @Injectable()
 export class DatabaseService implements TypeOrmOptionsFactory {
@@ -20,7 +22,7 @@ export class DatabaseService implements TypeOrmOptionsFactory {
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.DATABASE,
       synchronize: true,
-      entities: [UserEntity, FeaturePropertyEntity, ImagepropertyEntity, TypePropertyEntity, PropertyEntity, ZoneEntity,CommentEntity,ResponseCommentEntity],
+      entities: [UserEntity, FeatureEntity, FeaturePropertyEntity, ImagepropertyEntity, TypePropertyEntity, PropertyEntity, ZoneEntity, CommentEntity, ResponseCommentEntity, FavoriteEntity],
       logging: ['error', 'warn', 'info', 'query'],
     };
   }
