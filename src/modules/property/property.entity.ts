@@ -17,16 +17,16 @@ export class PropertyEntity {
     @Column('text', { nullable: true })
     description: string;
 
-    @Column()
+    @Column({ default: "" })
     location: string;
 
     @Column({ type: "decimal", precision: 10, scale: 2, default: 0 })
     price: number;
 
-    @Column()
+    @Column({ default: 1 })
     rating: number;
 
-    @Column({ name: "available_rooms" })
+    @Column({ name: "available_rooms", default: 0 })
     availableRooms: number;
 
     @Column({ type: "decimal", default: 0 })

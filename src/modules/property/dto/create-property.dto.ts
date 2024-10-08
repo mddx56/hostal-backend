@@ -1,12 +1,12 @@
 import { isDecimal, IsDecimal, IsNotEmpty, IsNumber, IsString, Length, MaxLength } from 'class-validator';
 
 export class CreatePropertyDto {
-    @IsNotEmpty({ message: 'Oops al parecer no has ingresado dato en este campo' })
-    @Length(6, 150, { message: 'el nombre debe tener entre 6 y 150 caracteres' })
+    @IsNotEmpty({ message: 'name no debe estar vacío' })
+    @Length(6, 150, { message: 'name debe tener entre 6 y 150 caracteres' })
     readonly name: string;
 
     @IsString()
-    @MaxLength(500, { message: 'La descripcion debe tener maximo 500 caracteres' })
+    @MaxLength(500, { message: 'description debe tener maximo 500 caracteres' })
     readonly description: string = "";
 
     @IsString()
@@ -16,16 +16,14 @@ export class CreatePropertyDto {
     readonly price: number;
 
     @IsNumber()
-    readonly rating: number;
+    readonly rating: number = 1;
 
     @IsNumber()
-    readonly availableRooms: number;
+    readonly availableRooms: number = 0;
 
-    @IsDecimal()
-    readonly latitude: number = 0;
+    //readonly latitude: number = 0;
 
-    @IsDecimal()
-    readonly longitude: number = 0;
+    //readonly longitude: number = 0;
 
     @IsNotEmpty({ message: 'Oops al parecer no has ingresado dato en este campo zona id' })
     @IsNumber()
