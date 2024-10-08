@@ -1,23 +1,23 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
-import { CreateFavoriteDto } from './dto/create-favorite.dto';
-import { UpdateFavoriteDto } from './dto/update-favorite.dto';
-import { FavoriteService } from './favorite.service';
+import { CreateFeatureDto } from './dto/create-feature.dto';
+import { UpdateFeatureDto } from './dto/update-feature.dto';
+import { FeatureService } from './feature.service';
 
 
-@Controller('favorite')
-export class FavoriteController {
-  constructor(private readonly favoriteService: FavoriteService) { }
+@Controller('feature')
+export class FeatureController {
+  constructor(private readonly featureService: FeatureService) { }
 
   @Post()
-  async create(@Body() createFavoriteDto: CreateFavoriteDto) {
+  async create(@Body() createFeatureDto: CreateFeatureDto) {
     try {
-      await this.favoriteService.create(
-        createFavoriteDto,
+      await this.featureService.create(
+        createFeatureDto,
       );
 
       return {
         success: true,
-        message: 'Favorite Created Successfully',
+        message: 'Feature Created Successfully',
       };
     } catch (error) {
       return {
@@ -31,11 +31,11 @@ export class FavoriteController {
   async findAll() {
     try {
       const data =
-        await this.favoriteService.findAll();
+        await this.featureService.findAll();
       return {
         success: true,
         data,
-        message: 'Favorite Fetched Successfully',
+        message: 'Feature Fetched Successfully',
       };
     } catch (error) {
       return {
@@ -48,13 +48,13 @@ export class FavoriteController {
   @Get(':id')
   async findOne(@Param('id') id: string) {
     try {
-      const data = await this.favoriteService.findOne(
+      const data = await this.featureService.findOne(
         +id,
       );
       return {
         success: true,
         data,
-        message: 'Favorite Fetched Successfully',
+        message: 'Feature Fetched Successfully',
       };
     } catch (error) {
       return {
@@ -65,15 +65,15 @@ export class FavoriteController {
   }
 
   @Patch(':id')
-  async update(@Param('id') id: string, @Body() updateFavoriteDto: UpdateFavoriteDto) {
+  async update(@Param('id') id: string, @Body() updateFeatureDto: UpdateFeatureDto) {
     try {
-      await this.favoriteService.update(
+      await this.featureService.update(
         +id,
-        updateFavoriteDto,
+        updateFeatureDto,
       );
       return {
         success: true,
-        message: 'Favorite Updated Successfully',
+        message: 'Feature Updated Successfully',
       };
     } catch (error) {
       return {
@@ -86,10 +86,10 @@ export class FavoriteController {
   @Delete(':id')
   async remove(@Param('id') id: string) {
     try {
-      await this.favoriteService.remove(+id);
+      await this.featureService.remove(+id);
       return {
         success: true,
-        message: 'Favorite Deleted Successfully',
+        message: 'Feature Deleted Successfully',
       };
     } catch (error) {
       return {

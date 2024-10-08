@@ -1,26 +1,54 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { CreateFeaturepropertyDto } from './dto/create-featureproperty.dto';
 import { UpdateFeaturepropertyDto } from './dto/update-featureproperty.dto';
+import { FeaturePropertyEntity } from './entities/featureproperty.entity';
 
 @Injectable()
-export class FeaturepropertyService {
-  create(createFeaturepropertyDto: CreateFeaturepropertyDto) {
-    return 'This action adds a new featureproperty';
-  }
+export class FeaturePropertyService {
 
-  findAll() {
-    return `This action returns all featureproperty`;
-  }
+    constructor(
+        @InjectRepository(FeaturePropertyEntity)
+        private readonly featurepropertyRepository: Repository<FeaturePropertyEntity>,
+    ) { }
 
-  findOne(id: number) {
-    return `This action returns a #${id} featureproperty`;
-  }
+    async create(createFeaturepropertyDto: CreateFeaturepropertyDto) {
+        const featurepropertyData = await this.featurepropertyRepository.create(createFeaturepropertyDto);
+        return this.featurepropertyRepository.save(featurepropertyData);
+    }
 
-  update(id: number, updateFeaturepropertyDto: UpdateFeaturepropertyDto) {
-    return `This action updates a #${id} featureproperty`;
-  }
+    async findAll() {
+        return await this.featurepropertyRepository.find();
+    }
 
-  remove(id: number) {
-    return `This action removes a #${id} featureproperty`;
-  }
+    async findOne(id: number): Promise<FeaturePropertyEntity> {
+        const featurepropertyData =
+            await this.featurepropertyRepository.findOneBy({ id });
+        if (!featurepropertyData) {
+            throw new HttpException(
+                'Featureproperty Not Found',
+                404,
+            );
+        }
+        return featurepropertyData;
+    }
+
+    async update(id: number, updateFeaturepropertyDto: UpdateFeaturepropertyDto) {
+        const existingFeatureproperty = await this.findOne(id);
+        const featurepropertyData = this.featurepropertyRepository.merge(
+            existingFeatureproperty,
+            updateFeaturepropertyDto,
+        );
+        return await this.featurepropertyRepository.save(
+            featurepropertyData,
+        );
+    }
+
+    async remove(id: number) {
+        const existingFeatureproperty = await this.findOne(id);
+        return await this.featurepropertyRepository.remove(
+            existingFeatureproperty,
+        );
+    }
 }

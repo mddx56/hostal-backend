@@ -1,13 +1,15 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { FeatureEntity } from './entities/feature.entity';
-import { FeaturepropertyController } from './featureproperty.controller';
+import { FeatureController } from './feature.controller';
 import { FeaturePropertyEntity } from './entities/featureproperty.entity';
-import { FeaturepropertyService } from './featureproperty.service';
+import { FeatureService } from './feature.service';
+import { FeaturePropertyController } from './featureproperty.controller';
+import { FeaturePropertyService } from './featureproperty.service';
 
 @Module({
   imports: [TypeOrmModule.forFeature([FeatureEntity, FeaturePropertyEntity])],
-  controllers: [FeaturepropertyController],
-  providers: [FeaturepropertyService],
+  controllers: [FeatureController, FeaturePropertyController],
+  providers: [FeatureService, FeaturePropertyService],
 })
 export class FeaturepropertyModule { }

@@ -9,7 +9,7 @@ export class FeatureEntity {
     @Column({ unique: true })
     name: string;
 
-    @Column()
+    @Column({ default: 'default-icon' })
     icon: string;
 
     @OneToMany(() => FeaturePropertyEntity, (favorite) => favorite.feature)
