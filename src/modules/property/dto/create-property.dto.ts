@@ -1,4 +1,4 @@
-import { isDecimal, IsDecimal, IsNotEmpty, IsNumber, IsString, Length, MaxLength } from 'class-validator';
+import { IsDecimal, IsNotEmpty, IsNumber, IsString, Length, MaxLength } from 'class-validator';
 
 export class CreatePropertyDto {
     @IsNotEmpty({ message: 'name no debe estar vacío' })
@@ -21,15 +21,15 @@ export class CreatePropertyDto {
     @IsNumber()
     readonly availableRooms: number = 0;
 
-    //readonly latitude: number = 0;
+    readonly latitude: number = 0;
 
-    //readonly longitude: number = 0;
+    readonly longitude: number = 0;
 
-    @IsNotEmpty({ message: 'Oops al parecer no has ingresado dato en este campo zona id' })
+    @IsNotEmpty({ message: 'al parecer no has ingresado dato en este campo zona id' })
     @IsNumber()
     readonly zone_id: number;
 
-    @IsNotEmpty({ message: 'Oops al parecer no has ingresado dato en este campo tipo id' })
+    @IsNotEmpty({ message: 'al parecer no has ingresado dato en este campo tipo id' })
     @IsNumber()
     readonly type_id: number;
 }
