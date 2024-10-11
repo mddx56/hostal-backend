@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post } from '@nestjs/common';
 import { CreatePropertyDto } from './dto/create-property.dto';
 import { UpdatePropertyDto } from './dto/update-property.dto';
 import { PropertyService } from './property.service';
@@ -45,7 +45,7 @@ export class PropertyController {
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: string) {
+  async findOne(@Param('id', ParseIntPipe) id: string) {
     try {
       const data = await this.propertyService.findOne(
         +id,
@@ -62,6 +62,26 @@ export class PropertyController {
       };
     }
   }
+
+
+  @Get('position/all')
+  async getPositions() {
+    try {
+      const data = await this.propertyService.findPositions(
+      );
+      return {
+        success: true,
+        data,
+        message: 'Property positions Fetched Successfully',
+      };
+    } catch (error) {
+      return {
+        success: false,
+        message: error.message,
+      };
+    }
+  }
+
 
   @Patch(':id')
   async update(@Param('id') id: string, @Body() updatePropertyDto: UpdatePropertyDto) {

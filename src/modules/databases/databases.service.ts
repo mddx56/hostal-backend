@@ -21,7 +21,7 @@ export class DatabaseService implements TypeOrmOptionsFactory {
       username: process.env.POSTGRES_USER,
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.DATABASE,
-      synchronize: true,
+      synchronize: false,
       entities: [UserEntity, FeatureEntity, FeaturePropertyEntity, ImagepropertyEntity, TypePropertyEntity, PropertyEntity, ZoneEntity, CommentEntity, ResponseCommentEntity, FavoriteEntity],
       logging: ['error', 'warn', 'info', 'query'],
     };

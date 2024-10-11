@@ -22,6 +22,21 @@ export class PropertyService {
     return await this.propertyRepository.find({ relations: ['zone', 'type'] });
   }
 
+  async findPositions() {
+    const propertyData =
+      await this.propertyRepository.find({
+        select: ["id", "name", "latitude", "location"]
+      });
+    if (!propertyData) {
+      throw new HttpException(
+        'Property Not Found',
+        404,
+      );
+    }
+    return propertyData;
+  }
+
+
   async findOne(id: number): Promise<PropertyEntity> {
     const propertyData =
       await this.propertyRepository.findOneBy({ id });
