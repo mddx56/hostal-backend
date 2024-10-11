@@ -25,7 +25,7 @@ export class PropertyService {
   async findPositions() {
     const propertyData =
       await this.propertyRepository.find({
-        select: ["id", "name", "latitude", "location"]
+        select: ["id", "name", "latitude", "longitude"]
       });
     if (!propertyData) {
       throw new HttpException(
