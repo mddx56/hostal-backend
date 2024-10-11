@@ -8,16 +8,15 @@ import { NodemailerService } from './nodemailer.service';
   imports: [
     MailerModule.forRoot({
       transport: {
-        host: 'smtp.gmail.com',
-        port: 465,
-        secure: true,
+        host: 'smtp.ethereal.email',
+        port: 587,
         auth: {
-          user: `email-remitente@gmail.com`,
-          pass: `--secret`,
+          user: 'santos.dubuque@ethereal.email',
+          pass: 'J4rFKxYGWkwRt77ETU'
         },
       },
       defaults: {
-        from: '"No Reply" <email-remitente@gmail.com>',
+        from: '"No Reply" <tatu@gmail.com>',
       },
       template: {
         dir: join(__dirname, '..', '..', 'views', 'emails'),
@@ -31,4 +30,4 @@ import { NodemailerService } from './nodemailer.service';
   providers: [NodemailerService],
   exports: [NodemailerService],
 })
-export class NodemailerModule {}
+export class NodemailerModule { }

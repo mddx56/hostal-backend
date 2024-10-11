@@ -8,7 +8,7 @@ import { AuthService } from './auth.service';
 export class AuthController {
   private readonly logger = new Logger(AuthController.name);
 
-  constructor(private readonly authService: AuthService) {}
+  constructor(private readonly authService: AuthService) { }
 
   @Post('signUp')
   async createAccount(@Body() signUpDto: PersonDto) {
@@ -23,7 +23,7 @@ export class AuthController {
     return await this.authService.signIn(signInDto);
   }
 
-  @Post('refreshToken')
+  @Post('refresh')
   async refreshToken(@Body('refreshToken') refreshToken: string) {
     return this.authService.refreshToken(refreshToken);
   }
