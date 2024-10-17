@@ -7,9 +7,11 @@ import { FeatureEntity } from '../featureproperty/entities/feature.entity';
 import { FeaturePropertyEntity } from '../featureproperty/entities/featureproperty.entity';
 import { ImagepropertyEntity } from '../imageproperty/imageproperty.entity';
 import { PropertyEntity } from '../property/property.entity';
+import { RatingEntity } from '../ratings/rating.entity';
 import { TypePropertyEntity } from '../typeproperty/typeproperty.entity';
 import { UserEntity } from '../user/user.entity';
 import { ZoneEntity } from '../zone/zone.entity';
+import { DiscountEntity } from '../discount/discount.entity';
 
 @Injectable()
 export class DatabaseService implements TypeOrmOptionsFactory {
@@ -21,8 +23,8 @@ export class DatabaseService implements TypeOrmOptionsFactory {
       username: process.env.POSTGRES_USER,
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.DATABASE,
-      synchronize: false,
-      entities: [UserEntity, FeatureEntity, FeaturePropertyEntity, ImagepropertyEntity, TypePropertyEntity, PropertyEntity, ZoneEntity, CommentEntity, ResponseCommentEntity, FavoriteEntity],
+      synchronize: true,
+      entities: [UserEntity, FeatureEntity, FeaturePropertyEntity, ImagepropertyEntity, TypePropertyEntity, PropertyEntity, ZoneEntity, CommentEntity, ResponseCommentEntity, FavoriteEntity, RatingEntity, DiscountEntity],
       logging: ['error', 'warn', 'info', 'query'],
     };
   }

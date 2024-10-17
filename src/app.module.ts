@@ -6,7 +6,6 @@ import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { LoggerModule } from 'nestjs-pino';
 import { AuthModule } from './modules/auth/auth.module';
-import { CommentModule } from './modules/comment/comment.module';
 import { DatabaseModule } from './modules/databases/databases.module';
 import { DatabaseService } from './modules/databases/databases.service';
 import { FavoriteModule } from './modules/favorite/favorite.module';
@@ -14,6 +13,7 @@ import { FeaturepropertyModule } from './modules/featureproperty/featureproperty
 import { ImagepropertyModule } from './modules/imageproperty/imageproperty.module';
 import { AppLoggerModule } from './modules/logger/logger.module';
 import { PropertyModule } from './modules/property/property.module';
+import { RatingModule } from './modules/ratings/rating.module';
 import { TypepropertyModule } from './modules/typeproperty/typeproperty.module';
 import { UserModule } from './modules/user/user.module';
 import { ZoneModule } from './modules/zone/zone.module';
@@ -39,8 +39,8 @@ import { ZoneModule } from './modules/zone/zone.module';
     TypepropertyModule,
     FeaturepropertyModule,
     ImagepropertyModule,
-    CommentModule,
-    FavoriteModule
+    FavoriteModule,
+    RatingModule
   ],
   providers: [DatabaseService, { provide: APP_GUARD, useClass: ThrottlerGuard }],
 })

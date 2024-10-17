@@ -5,6 +5,7 @@ import { ImagepropertyEntity } from '../imageproperty/imageproperty.entity';
 import { CommentEntity } from '../comment/entities/comment.entity';
 import { FavoriteEntity } from '../favorite/favorite.entity';
 import { FeaturePropertyEntity } from '../featureproperty/entities/featureproperty.entity';
+import { RatingEntity } from '../ratings/rating.entity';
 
 @Entity('property')
 export class PropertyEntity {
@@ -22,6 +23,10 @@ export class PropertyEntity {
 
     @Column({ type: "decimal", precision: 10, scale: 2, default: 0 })
     price: number;
+
+
+    @Column({ default: 1 })
+    views: number;
 
     @Column({ default: 1 })
     rating: number;
@@ -63,6 +68,9 @@ export class PropertyEntity {
 
     @OneToMany(() => FavoriteEntity, (favorite) => favorite.property)
     favorites: FavoriteEntity[];
+
+    @OneToMany(() => RatingEntity, (rating) => rating.property)
+    ratings: FavoriteEntity[];
 
     @OneToMany(() => FeaturePropertyEntity, (favorite) => favorite.property)
     featureproperties: FeaturePropertyEntity[];

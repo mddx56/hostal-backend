@@ -12,6 +12,10 @@ export class UserService {
     private readonly userRepository: Repository<UserEntity>,
   ) { }
 
+  async findAll() {
+    return await this.userRepository.find();
+  }
+
   async recoverPassword(id: number, updatePasswordDto: UpdatePasswordDto) {
     const user = await this.userRepository.findOne({ where: { id } });
 

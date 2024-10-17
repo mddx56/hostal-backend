@@ -1,9 +1,11 @@
 import { InternalServerErrorException } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
+import { Exclude } from 'class-transformer';
 import { BeforeInsert, Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 import { CommentEntity } from '../comment/entities/comment.entity';
 import { ResponseCommentEntity } from '../comment/entities/reposnse.entiry';
 import { FavoriteEntity } from '../favorite/favorite.entity';
+import { RatingEntity } from '../ratings/rating.entity';
 
 @Entity('user')
 export class UserEntity {
@@ -13,6 +15,7 @@ export class UserEntity {
   @Column({ unique: true })
   email: string;
 
+  @Exclude()
   @Column()
   password: string;
 
@@ -45,6 +48,9 @@ export class UserEntity {
 
   @OneToMany(() => FavoriteEntity, (favorite) => favorite.user)
   favorites: FavoriteEntity[];
+
+  @OneToMany(() => RatingEntity, (rating) => rating.user)
+  ratings: RatingEntity[];
 
   @BeforeInsert()
   async hashPassword(): Promise<void> {
