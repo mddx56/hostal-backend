@@ -12,11 +12,12 @@ export class AuthGuard implements CanActivate {
 
     @InjectPinoLogger(AuthService.name)
     private readonly logger: PinoLogger,
-  ) {}
+  ) { }
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest();
-
+    const user = request.user;
+    console.log(user);
     const token = this.extractTokenFromHeader(request);
     if (!token) throw new UnauthorizedException('Su permiso a expirado, por favor vuelva a validarse');
 
@@ -26,6 +27,7 @@ export class AuthGuard implements CanActivate {
       this.logger.debug({ context: 'AuthGuards', message: `Payload generado', ${payload}` });
 
       request['user'] = payload;
+      console.log
     } catch (error) {
       if (error instanceof TokenExpiredError) {
         const refreshToken = request.headers['x-refresh-token'];

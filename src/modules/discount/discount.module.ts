@@ -5,8 +5,8 @@ import { DiscountEntity } from './discount.entity';
 import { DiscountService } from './discount.service';
 
 @Module({
-    imports: [TypeOrmModule.forFeature([DiscountEntity])],
-    controllers: [DiscountController],
-    providers: [DiscountService],
+  imports: [TypeOrmModule.forFeature([DiscountEntity])],
+  controllers: [DiscountController],
+  providers: [DiscountService],
 })
-export class DiscountModule { }
+export class DiscountModule {}

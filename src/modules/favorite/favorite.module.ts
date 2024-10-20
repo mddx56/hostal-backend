@@ -9,4 +9,4 @@ import { FavoriteService } from './favorite.service';
   controllers: [FavoriteController],
   providers: [FavoriteService],
 })
-export class FavoriteModule { }
+export class FavoriteModule {}

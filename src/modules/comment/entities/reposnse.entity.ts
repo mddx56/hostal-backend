@@ -1,5 +1,5 @@
 import { UserEntity } from 'src/modules/user/user.entity';
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, Relation, UpdateDateColumn } from 'typeorm';
 import { CommentEntity } from './comment.entity';
 
 @Entity('comment_response')
@@ -21,13 +21,12 @@ export class ResponseCommentEntity {
 
     @ManyToOne(() => UserEntity, (user) => user.comments)
     @JoinColumn({ name: 'user_id' })
-    user: UserEntity;
+    user: Relation<UserEntity>;
 
     @Column()
     comment_id: number;
 
     @ManyToOne(() => CommentEntity, (comment) => comment.responses)
     @JoinColumn({ name: 'comment_id' })
-    comment: CommentEntity;
-
+    comment: Relation<CommentEntity>;
 }

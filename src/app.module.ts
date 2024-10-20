@@ -1,4 +1,3 @@
-import { MailerModule } from '@nestjs-modules/mailer';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { APP_GUARD } from '@nestjs/core';
@@ -8,6 +7,7 @@ import { LoggerModule } from 'nestjs-pino';
 import { AuthModule } from './modules/auth/auth.module';
 import { DatabaseModule } from './modules/databases/databases.module';
 import { DatabaseService } from './modules/databases/databases.service';
+import { DiscountModule } from './modules/discount/discount.module';
 import { FavoriteModule } from './modules/favorite/favorite.module';
 import { FeaturepropertyModule } from './modules/featureproperty/featureproperty.module';
 import { ImagepropertyModule } from './modules/imageproperty/imageproperty.module';
@@ -32,7 +32,6 @@ import { ZoneModule } from './modules/zone/zone.module';
     AppLoggerModule,
     DatabaseModule,
     AuthModule,
-    MailerModule,
     LoggerModule,
     PropertyModule,
     ZoneModule,
@@ -40,7 +39,8 @@ import { ZoneModule } from './modules/zone/zone.module';
     FeaturepropertyModule,
     ImagepropertyModule,
     FavoriteModule,
-    RatingModule
+    RatingModule,
+    DiscountModule
   ],
   providers: [DatabaseService, { provide: APP_GUARD, useClass: ThrottlerGuard }],
 })

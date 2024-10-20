@@ -10,7 +10,6 @@ dotenv.config();
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule, { bufferLogs: true });
-
   app.useLogger(app.get(Logger));
   app.setGlobalPrefix('v1');
   app.useGlobalPipes(
@@ -22,12 +21,7 @@ async function bootstrap() {
     }),
   );
 
-  const config = new DocumentBuilder()
-    .setTitle('HostalApp')
-    .setDescription('API description')
-    .setVersion('0.1')
-    .addTag('teloss')
-    .build();
+  const config = new DocumentBuilder().setTitle('HostalApp').setDescription('API description').setVersion('0.1').addTag('teloss').build();
 
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('swagger', app, document);

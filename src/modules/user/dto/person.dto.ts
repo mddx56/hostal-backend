@@ -1,8 +1,7 @@
-import { IsAlphanumeric, IsEmail, IsEmpty, IsNotEmpty, IsString, IsUrl, Length } from 'class-validator';
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty, PartialType } from '@nestjs/swagger';
+import { IsAlphanumeric, IsEmail, IsEmpty, IsNotEmpty, IsNumber, IsOptional, IsUrl, Length } from 'class-validator';
 
-export class PersonDto {
-
+export class CreateUserDto {
   @ApiProperty()
   @IsNotEmpty({ message: 'Oops al parecer no has ingresado dato en este campo' })
   @IsEmail({}, { message: 'Email ingresado es incorrecto.' })
@@ -27,10 +26,16 @@ export class PersonDto {
   @ApiProperty()
   @IsEmpty()
   readonly provider: string;
+
+  @ApiProperty()
+  @IsOptional()
+  @IsNumber({}, { message: 'El valor debe ser un número' })
+  readonly role: number;
 }
 
-export class SignInDto {
+export class UpdateUserDto extends PartialType(CreateUserDto) { }
 
+export class SignInDto {
   @ApiProperty({ example: 'ramez@gmail.com' })
   @IsNotEmpty({ message: 'Oops al parecer no has ingresado dato en este campo' })
   @IsEmail({}, { message: 'Email ingresado es incorrecto.' })
@@ -45,7 +50,6 @@ export class SignInDto {
 }
 
 export class VerifyEmailDto {
-
   @ApiProperty()
   @IsEmpty()
   readonly id: number;
@@ -62,7 +66,6 @@ export class VerifyEmailDto {
 }
 
 export class UpdatePasswordDto {
-
   @ApiProperty()
   @IsNotEmpty({ message: 'Oops al parecer no has ingresado dato en este campo' })
   @IsAlphanumeric()

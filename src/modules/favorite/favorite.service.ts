@@ -7,7 +7,6 @@ import { FavoriteEntity } from './favorite.entity';
 
 @Injectable()
 export class FavoriteService {
-
   constructor(
     @InjectRepository(FavoriteEntity)
     private readonly favoriteRepository: Repository<FavoriteEntity>,
@@ -23,32 +22,29 @@ export class FavoriteService {
   }
 
   async findOne(id: number): Promise<FavoriteEntity> {
-    const favoriteData =
-      await this.favoriteRepository.findOneBy({ id });
+    const favoriteData = await this.favoriteRepository.findOneBy({ id });
     if (!favoriteData) {
-      throw new HttpException(
-        'Favorite Not Found',
-        404,
-      );
+      throw new HttpException('Favorite Not Found', 404);
     }
     return favoriteData;
   }
 
+  async favorites(id: number): Promise<FavoriteEntity[]> {
+    return await this.favoriteRepository.find({
+      where: { user_id: id }, relations: {
+        property: true,
+      },
+    });
+  }
+
   async update(id: number, updateFavoriteDto: UpdateFavoriteDto) {
     const existingFavorite = await this.findOne(id);
-    const favoriteData = this.favoriteRepository.merge(
-      existingFavorite,
-      updateFavoriteDto,
-    );
-    return await this.favoriteRepository.save(
-      favoriteData,
-    );
+    const favoriteData = this.favoriteRepository.merge(existingFavorite, updateFavoriteDto);
+    return await this.favoriteRepository.save(favoriteData);
   }
 
   async remove(id: number) {
     const existingFavorite = await this.findOne(id);
-    return await this.favoriteRepository.remove(
-      existingFavorite,
-    );
+    return await this.favoriteRepository.remove(existingFavorite);
   }
 }

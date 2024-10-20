@@ -3,18 +3,21 @@ import { PropertyEntity } from '../property/property.entity';
 
 @Entity('type_property')
 export class TypePropertyEntity {
-    @PrimaryGeneratedColumn('increment')
-    id: number;
+  @PrimaryGeneratedColumn('increment')
+  id: number;
 
-    @Column({ unique: true })
-    name: string;
+  @Column({ unique: true })
+  name: string;
 
-    @Column({ nullable: true })
-    title: string = "";
+  @Column({ nullable: true })
+  title: string = '';
 
-    @Column('text', { nullable: true })
-    description: string = "";
+  @Column({ nullable: true, default: '' })
+  url: string = '';
 
-    @OneToMany(() => PropertyEntity, (property) => property.type)
-    propertys: PropertyEntity[];
+  @Column('text', { nullable: true })
+  description: string = '';
+
+  @OneToMany(() => PropertyEntity, (property) => property.type)
+  propertys: PropertyEntity[];
 }

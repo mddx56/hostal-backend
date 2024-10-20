@@ -1,22 +1,33 @@
-import { MailerService } from '@nestjs-modules/mailer';
 import { Injectable } from '@nestjs/common';
+import nodemailer from "nodemailer";
 
 @Injectable()
 export class NodemailerService {
-  constructor(private readonly mailerService: MailerService) {}
 
-  async sendPasswordResetEmail(user: { email: string; name: string }, checkLink: string) {
+  static async sendPasswordResetEmail(email: string, name: string, checkLink: string) {
     try {
-      const result = await this.mailerService.sendMail({
-        to: user.email,
-        subject: 'Restablecimiento de contraseña',
-        template: 'recoverpass',
-        context: {
-          name: user.name,
-          checkLink: checkLink,
+      //let {recipient, subject, text, html, } = req.body;
+      const transporter = nodemailer.createTransport({
+        service: "gmail",
+        host: "smtp.gmail.com",
+        port: 587,
+        secure: false,
+        auth: {
+          user: process.env.NODEMAILER_USER,
+          pass: process.env.NODEMAILER_PASSWORD,
         },
       });
-      console.log('Email sent result:', result);
+
+      console.log(checkLink);
+      const info = await transporter.sendMail({
+        from: "process.env.EMAIL@gmaiil.com",
+        to: 'manuelcitosad@gmail.com',
+        subject: 'subject',
+        text: 'text',
+        html: 'html'
+      });
+
+      console.log("Message sent: %s", info.messageId);
     } catch (error) {
       console.error('Error sending email:', error);
     }

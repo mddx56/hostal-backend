@@ -3,7 +3,6 @@ import { CreateFavoriteDto } from './dto/create-favorite.dto';
 import { UpdateFavoriteDto } from './dto/update-favorite.dto';
 import { FavoriteService } from './favorite.service';
 
-
 @Controller('favorite')
 export class FavoriteController {
   constructor(private readonly favoriteService: FavoriteService) { }
@@ -11,9 +10,7 @@ export class FavoriteController {
   @Post()
   async create(@Body() createFavoriteDto: CreateFavoriteDto) {
     try {
-      await this.favoriteService.create(
-        createFavoriteDto,
-      );
+      await this.favoriteService.create(createFavoriteDto);
 
       return {
         success: true,
@@ -30,8 +27,7 @@ export class FavoriteController {
   @Get()
   async findAll() {
     try {
-      const data =
-        await this.favoriteService.findAll();
+      const data = await this.favoriteService.findAll();
       return {
         success: true,
         data,
@@ -48,9 +44,7 @@ export class FavoriteController {
   @Get(':id')
   async findOne(@Param('id') id: string) {
     try {
-      const data = await this.favoriteService.findOne(
-        +id,
-      );
+      const data = await this.favoriteService.findOne(+id);
       return {
         success: true,
         data,
@@ -64,13 +58,28 @@ export class FavoriteController {
     }
   }
 
+  @Get('user/:id')
+  async favorites(@Param('id') id: string) {
+    try {
+      const data = await this.favoriteService.favorites(+id);
+      return {
+        success: true,
+        data,
+        message: 'Favorites User Fetched Successfully',
+      };
+    } catch (error) {
+      return {
+        success: false,
+        message: error.message,
+      };
+    }
+  }
+
+
   @Patch(':id')
   async update(@Param('id') id: string, @Body() updateFavoriteDto: UpdateFavoriteDto) {
     try {
-      await this.favoriteService.update(
-        +id,
-        updateFavoriteDto,
-      );
+      await this.favoriteService.update(+id, updateFavoriteDto);
       return {
         success: true,
         message: 'Favorite Updated Successfully',

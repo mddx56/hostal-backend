@@ -7,11 +7,10 @@ import { ZoneEntity } from './zone.entity';
 
 @Injectable()
 export class ZoneService {
-
   constructor(
     @InjectRepository(ZoneEntity)
     private readonly zoneRepository: Repository<ZoneEntity>,
-  ) { }
+  ) {}
 
   async create(createZoneDto: CreateZoneDto) {
     const zoneData = await this.zoneRepository.create(createZoneDto);
@@ -23,32 +22,21 @@ export class ZoneService {
   }
 
   async findOne(id: number): Promise<ZoneEntity> {
-    const zoneData =
-      await this.zoneRepository.findOneBy({ id });
+    const zoneData = await this.zoneRepository.findOneBy({ id });
     if (!zoneData) {
-      throw new HttpException(
-        'Zone Not Found',
-        404,
-      );
+      throw new HttpException('Zone Not Found', 404);
     }
     return zoneData;
   }
 
   async update(id: number, updateZoneDto: UpdateZoneDto) {
     const existingZone = await this.findOne(id);
-    const zoneData = this.zoneRepository.merge(
-      existingZone,
-      updateZoneDto,
-    );
-    return await this.zoneRepository.save(
-      zoneData,
-    );
+    const zoneData = this.zoneRepository.merge(existingZone, updateZoneDto);
+    return await this.zoneRepository.save(zoneData);
   }
 
   async remove(id: number) {
     const existingZone = await this.findOne(id);
-    return await this.zoneRepository.remove(
-      existingZone,
-    );
+    return await this.zoneRepository.remove(existingZone);
   }
 }

@@ -5,8 +5,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { PropertyEntity } from './property.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([PropertyEntity]),],
+  imports: [TypeOrmModule.forFeature([PropertyEntity])],
   controllers: [PropertyController],
   providers: [PropertyService],
 })
-export class PropertyModule { }
+export class PropertyModule {}

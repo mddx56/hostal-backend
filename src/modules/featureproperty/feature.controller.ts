@@ -3,17 +3,14 @@ import { CreateFeatureDto } from './dto/create-feature.dto';
 import { UpdateFeatureDto } from './dto/update-feature.dto';
 import { FeatureService } from './feature.service';
 
-
 @Controller('feature')
 export class FeatureController {
-  constructor(private readonly featureService: FeatureService) { }
+  constructor(private readonly featureService: FeatureService) {}
 
   @Post()
   async create(@Body() createFeatureDto: CreateFeatureDto) {
     try {
-      await this.featureService.create(
-        createFeatureDto,
-      );
+      await this.featureService.create(createFeatureDto);
 
       return {
         success: true,
@@ -30,8 +27,7 @@ export class FeatureController {
   @Get()
   async findAll() {
     try {
-      const data =
-        await this.featureService.findAll();
+      const data = await this.featureService.findAll();
       return {
         success: true,
         data,
@@ -48,9 +44,7 @@ export class FeatureController {
   @Get(':id')
   async findOne(@Param('id') id: string) {
     try {
-      const data = await this.featureService.findOne(
-        +id,
-      );
+      const data = await this.featureService.findOne(+id);
       return {
         success: true,
         data,
@@ -67,10 +61,7 @@ export class FeatureController {
   @Patch(':id')
   async update(@Param('id') id: string, @Body() updateFeatureDto: UpdateFeatureDto) {
     try {
-      await this.featureService.update(
-        +id,
-        updateFeatureDto,
-      );
+      await this.featureService.update(+id, updateFeatureDto);
       return {
         success: true,
         message: 'Feature Updated Successfully',

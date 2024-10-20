@@ -12,4 +12,4 @@ import { FeaturePropertyService } from './featureproperty.service';
   controllers: [FeatureController, FeaturePropertyController],
   providers: [FeatureService, FeaturePropertyService],
 })
-export class FeaturepropertyModule { }
+export class FeaturepropertyModule {}

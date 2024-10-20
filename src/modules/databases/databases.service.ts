@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { TypeOrmModuleOptions, TypeOrmOptionsFactory } from '@nestjs/typeorm';
 import { CommentEntity } from '../comment/entities/comment.entity';
-import { ResponseCommentEntity } from '../comment/entities/reposnse.entiry';
+import { ResponseCommentEntity } from '../comment/entities/reposnse.entity';
 import { FavoriteEntity } from '../favorite/favorite.entity';
 import { FeatureEntity } from '../featureproperty/entities/feature.entity';
 import { FeaturePropertyEntity } from '../featureproperty/entities/featureproperty.entity';
@@ -24,7 +24,20 @@ export class DatabaseService implements TypeOrmOptionsFactory {
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.DATABASE,
       synchronize: true,
-      entities: [UserEntity, FeatureEntity, FeaturePropertyEntity, ImagepropertyEntity, TypePropertyEntity, PropertyEntity, ZoneEntity, CommentEntity, ResponseCommentEntity, FavoriteEntity, RatingEntity, DiscountEntity],
+      entities: [
+        UserEntity,
+        FeatureEntity,
+        FeaturePropertyEntity,
+        ImagepropertyEntity,
+        TypePropertyEntity,
+        PropertyEntity,
+        ZoneEntity,
+        CommentEntity,
+        ResponseCommentEntity,
+        FavoriteEntity,
+        RatingEntity,
+        DiscountEntity,
+      ],
       logging: ['error', 'warn', 'info', 'query'],
     };
   }

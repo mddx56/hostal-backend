@@ -3,15 +3,15 @@ import { FeaturePropertyEntity } from './featureproperty.entity';
 
 @Entity('feature')
 export class FeatureEntity {
-    @PrimaryGeneratedColumn('increment')
-    id: number;
+  @PrimaryGeneratedColumn('increment')
+  id: number;
 
-    @Column({ unique: true })
-    name: string;
+  @Column({ unique: true })
+  name: string;
 
-    @Column({ default: 'default-icon' })
-    icon: string;
+  @Column({ default: 'default-icon' })
+  icon: string;
 
-    @OneToMany(() => FeaturePropertyEntity, (favorite) => favorite.feature)
-    featureproperties: FeaturePropertyEntity[];
+  @OneToMany(() => FeaturePropertyEntity, (favorite) => favorite.feature)
+  featureproperties: FeaturePropertyEntity[];
 }

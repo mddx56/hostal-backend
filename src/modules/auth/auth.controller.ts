@@ -1,7 +1,7 @@
 import { Body, Controller, Get, Logger, Post, Req, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { Throttle } from '@nestjs/throttler';
-import { PersonDto, SignInDto, VerifyEmailDto } from 'src/modules/user/dto/person.dto';
+import { CreateUserDto, SignInDto, VerifyEmailDto } from 'src/modules/user/dto/person.dto';
 import { AuthService } from './auth.service';
 
 @Controller('auth')
@@ -11,7 +11,7 @@ export class AuthController {
   constructor(private readonly authService: AuthService) { }
 
   @Post('signUp')
-  async createAccount(@Body() signUpDto: PersonDto) {
+  async createAccount(@Body() signUpDto: CreateUserDto) {
     this.logger.log(`Solicitud de nueva cuenta recibida para el usuario ${signUpDto.email}`);
     return await this.authService.signUp(signUpDto);
   }

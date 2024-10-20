@@ -1,26 +1,26 @@
 import { PropertyEntity } from 'src/modules/property/property.entity';
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, Relation } from 'typeorm';
 import { FeatureEntity } from './feature.entity';
 
 @Entity('feature_property')
 export class FeaturePropertyEntity {
-    @PrimaryGeneratedColumn('increment')
-    id: number;
+  @PrimaryGeneratedColumn('increment')
+  id: number;
 
-    @CreateDateColumn()
-    created?: Date;
+  @CreateDateColumn()
+  created?: Date;
 
-    @Column()
-    feature_id: number;
+  @Column()
+  feature_id: number;
 
-    @ManyToOne(() => FeatureEntity, (feat) => feat.featureproperties)
-    @JoinColumn({ name: 'feature_id' })
-    feature: FeatureEntity;
+  @ManyToOne(() => FeatureEntity, (feat) => feat.featureproperties)
+  @JoinColumn({ name: 'feature_id' })
+  feature: Relation<FeatureEntity>;
 
-    @Column()
-    property_id: number;
+  @Column()
+  property_id: number;
 
-    @ManyToOne(() => PropertyEntity, (proper) => proper.featureproperties)
-    @JoinColumn({ name: 'property_id' })
-    property: PropertyEntity;
+  @ManyToOne(() => PropertyEntity, (proper) => proper.featureproperties)
+  @JoinColumn({ name: 'property_id' })
+  property: Relation<PropertyEntity>;
 }

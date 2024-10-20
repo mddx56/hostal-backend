@@ -2,7 +2,6 @@ import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { GithubStrategy } from 'src/strategy/github.strategy';
 import { GoogleStrategy } from 'src/strategy/google.strategy';
 import { NodemailerService } from '../nodemailer/nodemailer.service';
 import { UserEntity } from '../user/user.entity';
@@ -20,6 +19,6 @@ import { AuthService } from './auth.service';
     PassportModule.register({ defaultStrategy: 'google' }),
   ],
   controllers: [AuthController],
-  providers: [AuthService, NodemailerService, GoogleStrategy, GithubStrategy],
+  providers: [AuthService, NodemailerService, GoogleStrategy],
 })
-export class AuthModule { }
+export class AuthModule {}

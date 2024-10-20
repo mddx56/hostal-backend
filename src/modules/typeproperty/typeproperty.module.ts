@@ -9,4 +9,4 @@ import { TypePropertyService } from './typeproperty.service';
   controllers: [TypepropertyController],
   providers: [TypePropertyService],
 })
-export class TypepropertyModule { }
+export class TypepropertyModule {}

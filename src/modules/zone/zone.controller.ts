@@ -3,17 +3,14 @@ import { CreateZoneDto } from './dto/create-zone.dto';
 import { UpdateZoneDto } from './dto/update-zone.dto';
 import { ZoneService } from './zone.service';
 
-
 @Controller('zone')
 export class ZoneController {
-  constructor(private readonly zoneService: ZoneService) { }
+  constructor(private readonly zoneService: ZoneService) {}
 
   @Post()
   async create(@Body() createZoneDto: CreateZoneDto) {
     try {
-      await this.zoneService.create(
-        createZoneDto,
-      );
+      await this.zoneService.create(createZoneDto);
 
       return {
         success: true,
@@ -30,8 +27,7 @@ export class ZoneController {
   @Get()
   async findAll() {
     try {
-      const data =
-        await this.zoneService.findAll();
+      const data = await this.zoneService.findAll();
       return {
         success: true,
         data,
@@ -48,9 +44,7 @@ export class ZoneController {
   @Get(':id')
   async findOne(@Param('id') id: string) {
     try {
-      const data = await this.zoneService.findOne(
-        +id,
-      );
+      const data = await this.zoneService.findOne(+id);
       return {
         success: true,
         data,
@@ -67,10 +61,7 @@ export class ZoneController {
   @Patch(':id')
   async update(@Param('id') id: string, @Body() updateZoneDto: UpdateZoneDto) {
     try {
-      await this.zoneService.update(
-        +id,
-        updateZoneDto,
-      );
+      await this.zoneService.update(+id, updateZoneDto);
       return {
         success: true,
         message: 'Zone Updated Successfully',

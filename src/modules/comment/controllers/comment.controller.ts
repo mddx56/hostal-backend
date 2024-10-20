@@ -5,14 +5,12 @@ import { UpdateResponseCommentDto } from '../dto/update-response-comment.dto';
 
 @Controller('comment')
 export class CommentController {
-  constructor(private readonly commentService: ResponseCommentService) { }
+  constructor(private readonly commentService: ResponseCommentService) {}
 
   @Post()
   async create(@Body() createCommentDto: CreateResponseCommentDto) {
     try {
-      await this.commentService.create(
-        createCommentDto,
-      );
+      await this.commentService.create(createCommentDto);
 
       return {
         success: true,
@@ -29,8 +27,7 @@ export class CommentController {
   @Get()
   async findAll() {
     try {
-      const data =
-        await this.commentService.findAll();
+      const data = await this.commentService.findAll();
       return {
         success: true,
         data,
@@ -47,9 +44,7 @@ export class CommentController {
   @Get(':id')
   async findOne(@Param('id') id: string) {
     try {
-      const data = await this.commentService.findOne(
-        +id,
-      );
+      const data = await this.commentService.findOne(+id);
       return {
         success: true,
         data,
@@ -66,10 +61,7 @@ export class CommentController {
   @Patch(':id')
   async update(@Param('id') id: string, @Body() updateCommentDto: UpdateResponseCommentDto) {
     try {
-      await this.commentService.update(
-        +id,
-        updateCommentDto,
-      );
+      await this.commentService.update(+id, updateCommentDto);
       return {
         success: true,
         message: 'Comment Updated Successfully',

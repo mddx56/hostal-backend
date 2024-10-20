@@ -1,4 +1,4 @@
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, Relation } from 'typeorm';
 import { PropertyEntity } from '../property/property.entity';
 import { UserEntity } from '../user/user.entity';
 
@@ -15,13 +15,12 @@ export class FavoriteEntity {
 
     @ManyToOne(() => UserEntity, (user) => user.favorites)
     @JoinColumn({ name: 'user_id' })
-    user: UserEntity;
+    user: Relation<UserEntity>;
 
     @Column()
     property_id: number;
 
     @ManyToOne(() => PropertyEntity, (proper) => proper.favorites)
     @JoinColumn({ name: 'property_id' })
-    property: PropertyEntity;
-
+    property: Relation<PropertyEntity>;
 }

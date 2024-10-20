@@ -3,7 +3,7 @@ import * as bcrypt from 'bcrypt';
 import { Exclude } from 'class-transformer';
 import { BeforeInsert, Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 import { CommentEntity } from '../comment/entities/comment.entity';
-import { ResponseCommentEntity } from '../comment/entities/reposnse.entiry';
+import { ResponseCommentEntity } from '../comment/entities/reposnse.entity';
 import { FavoriteEntity } from '../favorite/favorite.entity';
 import { RatingEntity } from '../ratings/rating.entity';
 
@@ -26,7 +26,7 @@ export class UserEntity {
   role: number = 3;
 
   @Column({ name: 'photo_url' })
-  photoUrl: string = "";
+  photoUrl: string = '';
 
   @Column()
   provider: string;

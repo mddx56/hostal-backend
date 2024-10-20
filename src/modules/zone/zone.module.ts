@@ -9,4 +9,4 @@ import { ZoneService } from './zone.service';
   controllers: [ZoneController],
   providers: [ZoneService],
 })
-export class ZoneModule { }
+export class ZoneModule {}

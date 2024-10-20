@@ -3,17 +3,14 @@ import { CreateTypepropertyDto } from './dto/create-typeproperty.dto';
 import { UpdateTypepropertyDto } from './dto/update-typeproperty.dto';
 import { TypePropertyService } from './typeproperty.service';
 
-
 @Controller('typeproperty')
 export class TypepropertyController {
-  constructor(private readonly typepropertyService: TypePropertyService) { }
+  constructor(private readonly typepropertyService: TypePropertyService) {}
 
   @Post()
   async create(@Body() createTypepropertyDto: CreateTypepropertyDto) {
     try {
-      await this.typepropertyService.create(
-        createTypepropertyDto,
-      );
+      await this.typepropertyService.create(createTypepropertyDto);
 
       return {
         success: true,
@@ -30,8 +27,7 @@ export class TypepropertyController {
   @Get()
   async findAll() {
     try {
-      const data =
-        await this.typepropertyService.findAll();
+      const data = await this.typepropertyService.findAll();
       return {
         success: true,
         data,
@@ -48,9 +44,7 @@ export class TypepropertyController {
   @Get(':id')
   async findOne(@Param('id') id: string) {
     try {
-      const data = await this.typepropertyService.findOne(
-        +id,
-      );
+      const data = await this.typepropertyService.findOne(+id);
       return {
         success: true,
         data,
@@ -67,10 +61,7 @@ export class TypepropertyController {
   @Patch(':id')
   async update(@Param('id') id: string, @Body() updateTypepropertyDto: UpdateTypepropertyDto) {
     try {
-      await this.typepropertyService.update(
-        +id,
-        updateTypepropertyDto,
-      );
+      await this.typepropertyService.update(+id, updateTypepropertyDto);
       return {
         success: true,
         message: 'Typeproperty Updated Successfully',
