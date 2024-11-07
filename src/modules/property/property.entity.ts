@@ -1,4 +1,4 @@
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, Point, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 import { CommentEntity } from '../comment/entities/comment.entity';
 import { FavoriteEntity } from '../favorite/favorite.entity';
 import { FeaturePropertyEntity } from '../featureproperty/entities/featureproperty.entity';
@@ -16,7 +16,7 @@ export class PropertyEntity {
   @Column({ unique: true })
   name: string;
 
-  @Column('text', { nullable: true })
+  @Column({ type: 'text', default: '' })
   description: string;
 
   @Column({ default: '' })
@@ -34,14 +34,16 @@ export class PropertyEntity {
   @Column({ name: 'available_rooms', default: 0 })
   availableRooms: number;
 
-  @Column({ type: 'decimal', default: 0 })
-  latitude: number;
+  @Column({
+    type: 'geography',
+    spatialFeatureType: 'Point',
+    srid: 4326,
+    nullable: true
+  })
+  position: Point;
 
-  @Column({ type: 'decimal', default: 0 })
-  longitude: number;
-
-  @Column({ nullable: true, default: '' })
-  url: string = '';
+  @Column({ default: '' })
+  url: string;
 
   @CreateDateColumn()
   created?: Date;
@@ -78,6 +80,6 @@ export class PropertyEntity {
   @OneToMany(() => FeaturePropertyEntity, (favorite) => favorite.property)
   featureproperties: FeaturePropertyEntity[];
 
-  @OneToOne(() => DiscountEntity, (dis) => dis.property) // specify inverse side as a second parameter
-  discount: DiscountEntity
+  @OneToOne(() => DiscountEntity, (dis) => dis.property)
+  discount: DiscountEntity;
 }

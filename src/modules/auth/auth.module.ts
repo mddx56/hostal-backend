@@ -14,11 +14,11 @@ import { AuthService } from './auth.service';
     JwtModule.register({
       global: true,
       secret: 'JWT_SECRET',
-      signOptions: { expiresIn: '5m' },
+      signOptions: { expiresIn: '1h' },
     }),
     PassportModule.register({ defaultStrategy: 'google' }),
   ],
   controllers: [AuthController],
   providers: [AuthService, NodemailerService, GoogleStrategy],
 })
-export class AuthModule {}
+export class AuthModule { }

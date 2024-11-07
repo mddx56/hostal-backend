@@ -6,6 +6,7 @@ import { CommentEntity } from '../comment/entities/comment.entity';
 import { ResponseCommentEntity } from '../comment/entities/reposnse.entity';
 import { FavoriteEntity } from '../favorite/favorite.entity';
 import { RatingEntity } from '../ratings/rating.entity';
+import { RoleEnum } from 'src/shared/interfaces/user.interface';
 
 @Entity('user')
 export class UserEntity {
@@ -22,8 +23,8 @@ export class UserEntity {
   @Column()
   name: string;
 
-  @Column()
-  role: number = 3;
+  @Column({ type: 'enum', enum: RoleEnum, array: true })
+  role: RoleEnum[];
 
   @Column({ name: 'photo_url' })
   photoUrl: string = '';

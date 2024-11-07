@@ -47,16 +47,4 @@ export class AuthController {
     return req.user;
   }
 
-  @Get('github')
-  @UseGuards(AuthGuard('github'))
-  async githubAuth(@Req() req) {
-    // Inicia el flujo de inicio de sesión de GitHub
-  }
-
-  @Get('github/callback')
-  @UseGuards(AuthGuard('github'))
-  async githubAuthRedirect(@Req() req) {
-    this.logger.log(`Solicitud de inicio de sesión recibida para el usuario ${req.user.username}, ${req.user}`);
-    return req.user;
-  }
 }

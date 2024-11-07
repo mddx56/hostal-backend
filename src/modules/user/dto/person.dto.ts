@@ -1,5 +1,6 @@
 import { ApiProperty, PartialType } from '@nestjs/swagger';
-import { IsAlphanumeric, IsEmail, IsEmpty, IsNotEmpty, IsNumber, IsOptional, IsUrl, Length } from 'class-validator';
+import { IsAlphanumeric, IsArray, IsEmail, IsEmpty, IsNotEmpty, IsNumber, IsOptional, IsUrl, Length } from 'class-validator';
+import { RoleEnum } from 'src/shared/interfaces/user.interface';
 
 export class CreateUserDto {
   @ApiProperty()
@@ -28,9 +29,8 @@ export class CreateUserDto {
   readonly provider: string;
 
   @ApiProperty()
-  @IsOptional()
-  @IsNumber({}, { message: 'El valor debe ser un número' })
-  readonly role: number;
+  @IsArray()
+  readonly role: RoleEnum[];
 }
 
 export class UpdateUserDto extends PartialType(CreateUserDto) { }
